@@ -1,14 +1,14 @@
 package sg.nus.iss.vttp.day15test.model;
 
-public class Dog {
+public class Pet {
     private String name;
     private int age;
     private String imageUrl;
     
-    public Dog() {
+    public Pet() {
     }
     
-    public Dog(String name, int age, String imageUrl) {
+    public Pet(String name, int age, String imageUrl) {
         this.name = name;
         this.age = age;
         this.imageUrl = imageUrl;
