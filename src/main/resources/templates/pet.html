@@ -7,6 +7,11 @@
     <title>Doggo</title>
 </head>
 <body>
-    <h1>Dog page</h1>
+    <h1>Pet page</h1>
+    <div data-th-object="${filledPet}">
+        <p data-th-text="*{name}"></p>
+        <p data-th-text="*{age}"></p>
+        <img th:src="*{imageUrl}">
+    </div>
 </body>
 </html>
