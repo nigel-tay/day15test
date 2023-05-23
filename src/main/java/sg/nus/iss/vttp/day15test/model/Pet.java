@@ -1,6 +1,8 @@
 package sg.nus.iss.vttp.day15test.model;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     private String name;
     private int age;
     private String imageUrl;
@@ -33,5 +35,8 @@ public class Pet {
         this.imageUrl = imageUrl;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Pet [name=" + name + ", age=" + age + ", imageUrl=" + imageUrl + "]";
+    }    
 }
