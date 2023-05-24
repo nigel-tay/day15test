@@ -4,3 +4,19 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.pet-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pet-list-item {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.pet-item-variable {
+    padding: 5px 0 5px 0;
+}
