@@ -7,11 +7,13 @@
     <title>Pet Shop</title>
 </head>
 <body>
+    <a href="/">Home</a>
     <h1>Pet page</h1>
     <div data-th-object="${filledPet}">
         <p data-th-text="*{name}"></p>
         <p data-th-text="*{age}"></p>
         <img th:src="*{imageUrl}">
     </div>
+    <a href="/petlist">Go to pet list</a>
 </body>
 </html>

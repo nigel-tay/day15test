@@ -7,11 +7,18 @@
     <title>Pet Shop</title>
 </head>
 <body>
+    <a href="/">Home</a>
+    <h1>Pet List</h1>
     <div class="pet-list-container">
-        <div th:each="pet: ${petObj}" class="pet-list-item">
-            <p class="pet-item-variable" data-th-text="${pet.name}"></p>
-            <p class="pet-item-variable" data-th-text="${pet.age}"></p>
-            <img class="pet-item-variable" th:src="${pet.imageUrl}">
+        <div th:each="pet, loop: ${petObj}" class="pet-list-item">
+            <p data-th-text="${loop.count}"></p>
+            <div th:each="petName: ${pet.value}">
+                <a data-th-href="@{'/petlist?id=' + ${petName.id}}">
+                    <p class="pet-item-variable" data-th-text="${petName.name}"></p>
+                </a>
+                <p class="pet-item-variable" data-th-text="${petName.age}"></p>
+                <img class="pet-item-variable" th:src="${petName.imageUrl}">
+            </div>
         </div>
     </div>
 </body>

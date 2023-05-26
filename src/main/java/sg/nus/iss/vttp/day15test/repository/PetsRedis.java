@@ -1,5 +1,6 @@
 package sg.nus.iss.vttp.day15test.repository;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,12 +12,20 @@ import sg.nus.iss.vttp.day15test.model.Pet;
 
 @Repository
 public class PetsRedis {
+    private String redisKey = "PET_HASH";
     
     @Autowired
     private RedisTemplate<String, Object> template;
 
     public void addPet(Pet pet) {
-        template.opsForHash().put("PET_HASH", pet.getName(), pet);
+        String hashKey = pet.getId();
+        template.opsForHash().put(redisKey, hashKey, pet);
+    }
+
+    public Object getPet(String id) {
+        Object retrievedPet = template.opsForHash().get(redisKey, id);
+        System.out.println(retrievedPet.toString());
+        return retrievedPet;
     }
 
     public Map<Object, Object> retrieveAllValues(String redisKey) {

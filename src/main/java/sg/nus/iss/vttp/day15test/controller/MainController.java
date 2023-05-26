@@ -1,6 +1,7 @@
 package sg.nus.iss.vttp.day15test.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.nus.iss.vttp.day15test.model.Pet;
 import sg.nus.iss.vttp.day15test.repository.PetsRedis;
@@ -29,24 +31,27 @@ public class MainController {
     }
 
     @GetMapping(path="/petlist")
-    public String returnPetListPage(Model model) {
-        String redisKey = "PET_HASH";
-        Map<Object, Object> petObj = petsRedis.retrieveAllValues(redisKey);
-        List<Pet> petObjList = new ArrayList<>();
-        
-        for (Map.Entry<Object, Object> entry : petObj.entrySet()) {
-            Pet pet = (Pet) entry.getValue();
-            petObjList.add(pet);
+    public String returnPetListPage(@RequestParam(required = false) String id, Model model) {
+        if (!(id == null)) {
+            String name = ((Pet)petsRedis.getPet(id)).getName();
+            int age = ((Pet)petsRedis.getPet(id)).getAge();
+            String url = ((Pet)petsRedis.getPet(id)).getImageUrl();
+            Pet filledPet = new Pet(name, id, age, url);
+            model.addAttribute("filledPet", filledPet);
+            return "pet";
         }
-
-        model.addAttribute("petObj", petObjList);
-        return "petList";
-
+        else {
+            String redisKey = "PET_HASH";
+            Map<Object, Object> petObj = petsRedis.retrieveAllValues(redisKey);
+    
+            model.addAttribute("petObj", petObj);
+            return "petList";
+        }
     }
 
     @PostMapping(consumes ="application/x-www-form-urlencoded", path="/form")
     public String handleForm(Pet pet, Model model) {
-        System.out.println(pet.getName());
+        pet.setId(pet.getName() + (new Date()).hashCode());
         petsRedis.addPet(pet);
         model.addAttribute("filledPet", pet);
         return "pet";

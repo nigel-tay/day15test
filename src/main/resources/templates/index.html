@@ -10,9 +10,9 @@
 <body>
     <h1>✨✨✨Welcome✨✨✨</h1>
         <form action="/form" method="post" data-th-object="${pet}">
-            <input type="text" data-th-field="*{name}">
-            <input type="text" data-th-field="*{age}">
-            <input type="text" data-th-field="*{imageUrl}">
+            <input type="text" placeholder="Name" data-th-field="*{name}">
+            <input type="text" placeholder="Age" data-th-field="*{age}">
+            <input type="text" placeholder="Image URL" data-th-field="*{imageUrl}">
             <input type="submit" value="Submit!">
         </form>
 </body>
